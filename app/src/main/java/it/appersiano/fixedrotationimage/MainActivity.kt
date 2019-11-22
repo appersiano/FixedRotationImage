@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.atan
+import kotlin.math.atan2
 
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -28,19 +29,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val x = gravSensorVals[0]
         val y = gravSensorVals[1]
 
-        val xy = x / y
-        val yx = y / x
+        val degreeRotation = atan2(x,y)
 
-        val degreeRotation = atan(xy)
-
-        var rotation = Math.toDegrees(degreeRotation.toDouble())
-
-        if (y < 0) {
-            rotation += 180
-        }
-
-        tvzero.text = rotation.toInt().toString()
-        tvYX.text = Math.toDegrees(atan(yx).toDouble()).toInt().toString()
+        val rotation = Math.toDegrees(degreeRotation.toDouble())
 
         ivDroid.rotation = rotation.toFloat()
     }
